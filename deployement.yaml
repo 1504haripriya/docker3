@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-flask-kube-deploy
+  labels:
+    type: restapi
+spec:
+  selector:
+    matchLabels:
+      app: python-flask-kube
+  replicas: 3
+  template:
+    metadata:
+      name: python-flask-kube-tmpl
+      labels:
+        app: python-flask-kube
+    spec:
+      containers:
+        - name: python-flask-kube
+          image: python-flask-kube:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
